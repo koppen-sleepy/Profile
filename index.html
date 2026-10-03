@@ -1,220 +1,597 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>こっぺん すりーぴー Profile</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>こっぺん すりーぴー | DJ Profile</title>
     <style>
+        /* CSS RESET & VARIABLES */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-color: #080808;
+            --panel-bg: #111111;
+            --panel-border: #222222;
+            --text-main: #f5f5f5;
+            --text-sub: #a0a0a0;
+            --accent-color: #c8ff00;
+            --accent-hover: #e0ff66;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            line-height: 1.6;
+            padding: 24px 16px 48px;
+            display: flex;
+            justify-content: center;
         }
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+        .container {
+            width: 100%;
+            max-width: 640px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
         }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+
+        /* TYPOGRAPHY & BUTTONS */
+        h2 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-color);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .slide-in {
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 1.1rem;
+            background-color: var(--accent-color);
         }
-        .slide-in.visible {
-            opacity: 1;
-            transform: translateX(0);
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 14px;
+            background-color: var(--accent-color);
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            transition: background-color 0.2s ease, opacity 0.2s ease;
+            flex: 1;
+            text-align: center;
         }
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
         }
-        .animate-rotate {
-            animation: rotate 10s linear infinite;
+
+        .btn-secondary {
+            background-color: #1e1e1e;
+            color: var(--text-main);
+            border: 1px solid #333333;
         }
-        @keyframes pulse-custom {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+
+        .btn-secondary:hover {
+            background-color: #2a2a2a;
         }
-        .animate-pulse-custom {
-            animation: pulse-custom 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+        /* PROFILE SECTION */
+        .profile-card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color);
+            flex-shrink: 0;
+            background-color: #1a1a1a;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .profile-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .profile-text {
+            font-size: 0.88rem;
+            color: var(--text-sub);
+        }
+
+        /* X ACCOUNTS SECTION */
+        .x-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .x-card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .x-card:hover {
+            border-color: var(--accent-color);
+            background-color: #161616;
+        }
+
+        .x-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .x-name {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .x-desc {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+
+        .x-icon {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        /* EVENTS SECTION */
+        .event-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .event-card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .event-top {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .event-thumb {
+            width: 84px;
+            height: 84px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #1a1a1a;
+            border: 1px solid var(--panel-border);
+            flex-shrink: 0;
+        }
+
+        .event-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        .event-date-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            background-color: #1a2200;
+            color: var(--accent-color);
+            border: 1px solid rgba(200, 255, 0, 0.2);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 0.03em;
+            align-self: flex-start;
+        }
+
+        .event-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            line-height: 1.35;
+            color: var(--text-main);
+            word-break: break-word;
+        }
+
+        .event-meta-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.82rem;
+            color: var(--text-sub);
+            background-color: #161616;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .event-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .event-meta-item .icon {
+            font-style: normal;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .event-action {
+            display: flex;
+            gap: 10px;
+        }
+
+        .no-events {
+            padding: 24px;
+            text-align: center;
+            color: var(--text-sub);
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-top: 16px;
+        }
+
+        /* RESPONSIVE (SP) */
+        @media (max-width: 480px) {
+            .profile-card {
+                padding: 16px;
+                gap: 14px;
+            }
+
+            .profile-img {
+                width: 76px;
+                height: 76px;
+            }
+
+            .profile-name {
+                font-size: 1.2rem;
+            }
+
+            .profile-text {
+                font-size: 0.8rem;
+            }
+
+            .event-card {
+                padding: 14px;
+                gap: 12px;
+            }
+
+            .event-top {
+                gap: 12px;
+            }
+
+            .event-thumb {
+                width: 72px;
+                height: 72px;
+            }
+
+            .event-title {
+                font-size: 0.98rem;
+            }
         }
     </style>
 </head>
-<body class="text-white selection:bg-purple-500/30 overflow-x-hidden">
-    <!-- Background Atmosphere -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/20 blur-[120px] rounded-full"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-900/10 blur-[150px] rounded-full"></div>
+
+<body>
+
+    <div class="container">
+
+        <!-- PROFILE SECTION -->
+        <section class="profile-card">
+            <img src="assets/profile.jpg" alt="こっぺん すりーぴー" class="profile-img" onerror="this.style.display='none'">
+            <div class="profile-info">
+                <h1 class="profile-name">こっぺん すりーぴー</h1>
+                <p class="profile-text">声優、アイドル、時々アニソンでDJをやっています。</p>
+            </div>
+        </section>
+
+        <!-- X ACCOUNTS SECTION -->
+        <section>
+            <h2>X (Twitter)</h2>
+            <div class="x-list">
+                <a href="https://x.com/koppen_sleepy_d" target="_blank" rel="noopener noreferrer" class="x-card">
+                    <div class="x-info">
+                        <span class="x-name">DJ活動</span>
+                        <span class="x-desc">DJ出演情報や告知等のアカウント</span>
+                    </div>
+                    <span class="x-icon">&rarr;</span>
+                </a>
+                <a href="https://x.com/koppen_sleepy" target="_blank" rel="noopener noreferrer" class="x-card">
+                    <div class="x-info">
+                        <span class="x-name">その他</span>
+                        <span class="x-desc">日常のつぶやきや個人の雑記</span>
+                    </div>
+                    <span class="x-icon">&rarr;</span>
+                </a>
+                <a href="https://x.com/AsvGuild" target="_blank" rel="noopener noreferrer" class="x-card">
+                    <div class="x-info">
+                        <span class="x-name">ASV-Guild</span>
+                        <span class="x-desc">所属イベント</span>
+                    </div>
+                    <span class="x-icon">&rarr;</span>
+                </a>
+                <a href="https://x.com/stagea_night" target="_blank" rel="noopener noreferrer" class="x-card">
+                    <div class="x-info">
+                        <span class="x-name">ステージアナイト</span>
+                        <span class="x-desc">所属イベント</span>
+                    </div>
+                    <span class="x-icon">&rarr;</span>
+                </a>
+                <a href="https://x.com/xamz_info" target="_blank" rel="noopener noreferrer" class="x-card">
+                    <div class="x-info">
+                        <span class="x-name">X-amz【クロスアミューズ】</span>
+                        <span class="x-desc">所属イベント</span>
+                    </div>
+                    <span class="x-icon">&rarr;</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- SCHEDULE SECTION -->
+        <section>
+            <h2>Schedule</h2>
+            <div id="event-list" class="event-list">
+                <div class="no-events">イベント情報を読み込み中...</div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            &copy; こっぺん すりーぴー
+        </footer>
+
     </div>
 
-    <main class="relative z-10 max-w-md mx-auto px-6 pt-16 pb-24">
-        <!-- Profile Header -->
-        <header id="header" class="text-center mb-12 fade-in">
-            <div class="relative inline-block mb-6" id="icon-container">
-                <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-purple-600 to-blue-600 p-[2px] animate-pulse-custom">
-                    <div class="w-full h-full rounded-full bg-[#050505] flex items-center justify-center overflow-hidden border-4 border-[#050505] relative">
-                        <img id="profile-img" src="" alt="" class="w-full h-full object-cover hidden" referrerPolicy="no-referrer">
-                        <i id="profile-icon" data-lucide="music" class="w-10 h-10 text-white/80"></i>
-                    </div>
-                </div>
-                <div class="absolute -inset-2 border border-dashed border-white/10 rounded-full pointer-events-none animate-rotate"></div>
-            </div>
-            
-            <h1 class="text-3xl font-bold tracking-tighter mb-2">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">こっぺん すりーぴー</span>
-            </h1>
-            <p class="text-white/50 text-sm font-medium tracking-widest uppercase">
-                DJ ( 声優 / アイドル )
-            </p>
-        </header>
-
-        <!-- Links Section -->
-        <div id="links" class="space-y-4">
-            <!-- Link 1 -->
-            <a href="https://x.com/koppen_sleepy_d" target="_blank" rel="noopener noreferrer" class="slide-in group relative block p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 active:scale-[0.98]">
-                <div class="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
-                <div class="flex items-center gap-4">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white shadow-lg shadow-black/20">
-                        <i data-lucide="disc" class="w-5 h-5"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between mb-0.5">
-                            <h2 class="text-sm font-bold text-white/90 truncate">こっぺん すりーぴー (x)</h2>
-                            <i data-lucide="external-link" class="w-3 h-3 text-white/30 group-hover:text-white/60 transition-colors"></i>
-                        </div>
-                        <p class="text-xs text-white/40 truncate">X(旧:Twitter) : DJ活動・出演情報はこちら</p>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Link 2 -->
-            <a href="https://x.com/koppen_sleepy" target="_blank" rel="noopener noreferrer" class="slide-in group relative block p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 active:scale-[0.98]">
-                <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
-                <div class="flex items-center gap-4">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white shadow-lg shadow-black/20">
-                        <i data-lucide="message-circle" class="w-5 h-5"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between mb-0.5">
-                            <h2 class="text-sm font-bold text-white/90 truncate">こっぺん (x)
-                            </h2>
-                            <i data-lucide="external-link" class="w-3 h-3 text-white/30 group-hover:text-white/60 transition-colors"></i>
-                        </div>
-                        <p class="text-xs text-white/40 truncate">X(旧:Twitter) : 日常・雑談など</p>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Link 3 -->
-            <a href="https://www.instagram.com/koppen_sleepy" target="_blank" rel="noopener noreferrer" class="slide-in group relative block p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 active:scale-[0.98]">
-                <div class="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
-                <div class="flex items-center gap-4">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white shadow-lg shadow-black/20">
-                        <i data-lucide="users" class="w-5 h-5"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between mb-0.5">
-                            <h2 class="text-sm font-bold text-white/90 truncate">こっぺん (instagram)</h2>
-                            <i data-lucide="external-link" class="w-3 h-3 text-white/30 group-hover:text-white/60 transition-colors"></i>
-                        </div>
-                        <p class="text-xs text-white/40 truncate">instagram : とりあえずやってます。</p>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Link 4 -->
-            <a href="https://x.com/AsvGuild" target="_blank" rel="noopener noreferrer" class="slide-in group relative block p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 active:scale-[0.98]">
-                <div class="absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-500 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
-                <div class="flex items-center gap-4">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white shadow-lg shadow-black/20">
-                        <i data-lucide="users" class="w-5 h-5"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between mb-0.5">
-                            <h2 class="text-sm font-bold text-white/90 truncate">ASV-Guild (x)</h2>
-                            <i data-lucide="external-link" class="w-3 h-3 text-white/30 group-hover:text-white/60 transition-colors"></i>
-                        </div>
-                        <p class="text-xs text-white/40 truncate">所属イベント ASV-Guild 公式X(旧:Twitter)</p>
-                    </div>
-                </div>
-            </a>
-            
-            <!-- Link 5 -->
-            <a href="https://x.com/stagea_night" target="_blank" rel="noopener noreferrer" class="slide-in group relative block p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 active:scale-[0.98]">
-                <div class="absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-500 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"></div>
-                <div class="flex items-center gap-4">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white shadow-lg shadow-black/20">
-                        <i data-lucide="users" class="w-5 h-5"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between mb-0.5">
-                            <h2 class="text-sm font-bold text-white/90 truncate">ステージアナイト (x)</h2>
-                            <i data-lucide="external-link" class="w-3 h-3 text-white/30 group-hover:text-white/60 transition-colors"></i>
-                        </div>
-                        <p class="text-xs text-white/40 truncate">所属イベント ステージアナイト 公式X(旧:Twitter)</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </main>
-
-    <!-- Decorative Elements -->
-    <div class="fixed bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
-
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+        // Google Sheets CSV Export URL Setting
+        const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSU02rk_FzCz7VEnV7ZsEq50uUbn9_3tMwYEt_rn2uGlM4Uo0UnLdi9-vJPD6400UmSesxYTEowya-e/pub?gid=0&single=true&output=csv";
 
-        // Icon Change Logic
-        const iconContainer = document.getElementById('icon-container');
-        const iconInput = document.getElementById('icon-input');
-        const profileImg = document.getElementById('profile-img');
-        const profileIcon = document.getElementById('profile-icon');
+        // Day of Week Helper
+        const WEEKDAYS = ['日', '月', '火', '水', '木', '金', '土'];
 
-        // Load icon
-        function loadProfile() {
-            const profileImg = document.getElementById('profile-img');
-            const profileIcon = document.getElementById('profile-icon');
-            
-            // Default path for GitHub Pages / Static hosting
-            const defaultPath = './src/profile.png';
-            
-            const img = new Image();
-            img.onload = function() {
-                profileImg.src = defaultPath + '?t=' + new Date().getTime();
-                profileImg.classList.remove('hidden');
-                profileIcon.classList.add('hidden');
+        // Robust CSV Parser
+        function parseCSV(text) {
+            if (!text || typeof text !== 'string') return [];
+
+            const lines = text.trim().split(/\r?\n/);
+            if (lines.length === 0) return [];
+
+            const parseLine = (line) => {
+                const row = [];
+                let insideQuote = false;
+                let entry = '';
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    if (char === '"') {
+                        insideQuote = !insideQuote;
+                    } else if (char === ',' && !insideQuote) {
+                        row.push(entry.trim().replace(/^"|"$/g, ''));
+                        entry = '';
+                    } else {
+                        entry += char;
+                    }
+                }
+                row.push(entry.trim().replace(/^"|"$/g, ''));
+                return row;
             };
-            img.onerror = function() {
-                // If profile.png doesn't exist, show the default icon
-                profileImg.classList.add('hidden');
-                profileIcon.classList.remove('hidden');
-            };
-            img.src = defaultPath;
+
+            const headers = parseLine(lines[0]);
+            const result = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                const row = parseLine(lines[i]);
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = row[index] || '';
+                });
+                result.push(obj);
+            }
+            return result;
         }
-        loadProfile();
 
-        // Simple animation trigger
-        window.addEventListener('DOMContentLoaded', () => {
-            // Header animation
-            setTimeout(() => {
-                document.getElementById('header').classList.add('visible');
-            }, 100);
+        // Render Events
+        async function loadEvents() {
+            const container = document.getElementById('event-list');
 
-            // Links animation
-            const links = document.querySelectorAll('.slide-in');
-            links.forEach((link, index) => {
-                setTimeout(() => {
-                    link.classList.add('visible');
-                }, 300 + (index * 100));
-            });
-        });
+            if (!GOOGLE_SHEETS_CSV_URL || GOOGLE_SHEETS_CSV_URL === "PASTE_GOOGLE_SHEETS_CSV_URL_HERE") {
+                container.innerHTML = '<div class="no-events">現在、予定されているイベントはありません。</div>';
+                return;
+            }
+
+            try {
+                const response = await fetch(GOOGLE_SHEETS_CSV_URL);
+                if (!response.ok) throw new Error('ネットワーク応答エラー: ' + response.statusText);
+
+                const csvText = await response.text();
+                const rawEvents = parseCSV(csvText);
+
+                const now = new Date();
+                const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+                // Process Events
+                const validEvents = rawEvents.map(item => {
+                    const dateStr = item['日付'] || item['date'];
+                    const name = item['イベント名'] || item['name'];
+                    const prefecture = item['県'] || item['prefecture'];
+                    const venue = item['会場'] || item['venue'];
+                    const openTime = item['開場'] || item['open'];
+                    const image = item['フライヤー'] || item['image'];
+                    const twipla = item['twipla'] || item['TwiPla'];
+                    const mapUrl = item['map'] || item['mapUrl'] || item['GoogleMap'];
+
+                    if (!dateStr) return null;
+
+                    // 正規化 (YYYY/MM/DD や YYYY-MM-DD に対応)
+                    const cleanDateStr = String(dateStr).trim().replace(/\//g, '-');
+                    const dateParts = cleanDateStr.split('-').map(Number);
+                    if (dateParts.length < 3 || dateParts.some(isNaN)) return null;
+
+                    const year = dateParts[0];
+                    const month = dateParts[1];
+                    const day = dateParts[2];
+                    const eventDate = new Date(year, month - 1, day);
+
+                    if (isNaN(eventDate.getTime())) return null;
+
+                    // 表示条件：開催日から3日後まで（eventDate + 3日 >= 今日）
+                    const hideLimit = new Date(eventDate);
+                    hideLimit.setDate(hideLimit.getDate() + 3);
+
+                    if (hideLimit.getTime() < today.getTime()) return null;
+
+                    return {
+                        dateStr: cleanDateStr,
+                        name: name ? String(name).trim() : '',
+                        prefecture: prefecture ? String(prefecture).trim() : '',
+                        venue: venue ? String(venue).trim() : '',
+                        openTime: openTime ? String(openTime).trim() : '',
+                        image: image ? String(image).trim() : '',
+                        twipla: twipla ? String(twipla).trim() : '',
+                        mapUrl: mapUrl ? String(mapUrl).trim() : '',
+                        parsedDate: eventDate
+                    };
+                }).filter(e => e !== null);
+
+                // 開催日順（昇順）にソート
+                validEvents.sort((a, b) => a.parsedDate.getTime() - b.parsedDate.getTime());
+
+                if (validEvents.length === 0) {
+                    container.innerHTML = '<div class="no-events">現在、予定されているイベントはありません。</div>';
+                    return;
+                }
+
+                container.innerHTML = '';
+                validEvents.forEach(event => {
+                    const card = document.createElement('div');
+                    card.className = 'event-card';
+
+                    const year = event.parsedDate.getFullYear();
+                    const month = String(event.parsedDate.getMonth() + 1).padStart(2, '0');
+                    const day = String(event.parsedDate.getDate()).padStart(2, '0');
+                    const dayOfWeek = WEEKDAYS[event.parsedDate.getDay()];
+                    const formattedDate = `${year}.${month}.${day} (${dayOfWeek})`;
+
+                    // サムネイル画像
+                    const imgHtml = event.image
+                        ? `<img src="${event.image}" alt="${event.name || 'フライヤー'}" class="event-thumb" loading="lazy" onerror="this.style.display='none'">`
+                        : '';
+
+                    // Google Map URL判定
+                    let finalMapUrl = event.mapUrl;
+                    if (!finalMapUrl && event.venue) {
+                        const mapQuery = encodeURIComponent(`${event.prefecture} ${event.venue}`.trim());
+                        finalMapUrl = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+                    }
+
+                    // ボタンエリアの組み立て
+                    const twiplaBtn = event.twipla
+                        ? `<a href="${event.twipla}" target="_blank" rel="noopener noreferrer" class="btn">TwiPlaを見る</a>`
+                        : '';
+                    const mapBtn = finalMapUrl
+                        ? `<a href="${finalMapUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Google Map</a>`
+                        : '';
+
+                    let actionAreaHtml = '';
+                    if (twiplaBtn || mapBtn) {
+                        actionAreaHtml = `<div class="event-action">${twiplaBtn}${mapBtn}</div>`;
+                    }
+
+                    // メタ情報（時間・場所）の組み立て
+                    let metaHtml = '';
+                    if (event.openTime || event.prefecture || event.venue) {
+                        const locationText = [event.prefecture, event.venue].filter(Boolean).join(' ');
+                        metaHtml = `
+              <div class="event-meta-list">
+                ${event.openTime ? `<div class="event-meta-item"><i class="icon"></i> <span> ${event.openTime}</span></div>` : ''}
+                ${locationText ? `<div class="event-meta-item"><i class="icon"></i> <span>${locationText}</span></div>` : ''}
+              </div>
+            `;
+                    }
+
+                    // カード内部の最終出力
+                    card.innerHTML = `
+            <div class="event-top">
+              ${imgHtml}
+              <div class="event-content">
+                <div class="event-date-badge">${formattedDate}</div>
+                <h3 class="event-title">${event.name}</h3>
+              </div>
+            </div>
+            ${metaHtml}
+            ${actionAreaHtml}
+          `;
+                    container.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error('イベント情報の取得に失敗しました:', error);
+                container.innerHTML = '<div class="no-events">現在、イベント情報を読み込めません。</div>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadEvents);
     </script>
 </body>
+
 </html>
